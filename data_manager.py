@@ -56,3 +56,13 @@ def get_applicant_by_name(cursor: RealDictCursor, applicant_name:str) -> list:
         FROM applicant WHERE first_name = '{0!s}' or last_name = '{0!s}'""".format(applicant_name)
     cursor.execute(query)
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_applicant_data_by_email_ending(cursor: RealDictCursor, applicant_email_ending:str) -> list:
+    query = """
+        SELECT first_name, last_name, phone_number,
+        concat(first_name,' ',last_name) as full_name 
+        FROM applicant WHERE email like '%{0!s}'""".format(applicant_email_ending)
+    cursor.execute(query)
+    return cursor.fetchall()

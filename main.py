@@ -29,11 +29,13 @@ def mentors_list():
 
 @app.route("/applicants-phone")
 def get_applicant_data_by_name():
-    if request.args["applicant-name"]:
+    if "email-ending" in request.args.keys() and request.args["email-ending"]:
+        applicant_email_ending = request.args["email-ending"]
+        applicants_details = data_manager.get_applicant_data_by_email_ending(applicant_email_ending)
+        return render_template('applicants_phone.html', applicants=applicants_details)
+    if "applicant-name" in request.args.keys() and request.args["applicant-name"]:
         applicant_name = request.args["applicant-name"]
-        print(applicant_name)
         applicants_details = data_manager.get_applicant_by_name(applicant_name)
-        print(applicants_details)
         return render_template('applicants_phone.html', applicants=applicants_details)
     return redirect("/")
 
