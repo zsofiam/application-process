@@ -27,6 +27,12 @@ def mentors_list():
     return render_template('mentors.html', mentors=mentor_details)
 
 
+@app.route('/applicants')
+def applicants_list():
+    applicants_list = data_manager.get_applicants()
+    return render_template('applicants.html', applicants=applicants_list)
+
+
 @app.route("/applicants-phone")
 def get_applicant_data_by_name():
     if "email-ending" in request.args.keys() and request.args["email-ending"]:
