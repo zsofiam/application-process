@@ -23,19 +23,16 @@
                 <td><a href= "/applicant/{{ applicant.get('application_code') }}">{{ applicant["application_code"] }}</a></td>
                 <td>
                     <form id="delete-applicant" action="/applicants/{{ applicant.get('application_code') }}/delete" method="post">
-                        <a href="javascript:confirmDeletion()">Delete Applicant</a>
+                        <a href="javascript:;" onclick="parentNode.submit()">Delete Applicant</a>
                     </form>
             </tr>
             {% endfor %}
         </table>
     </div>
-
+    <form action="/delete-applicant" method="post">
+        <label for="email-ending-input">Delete Applicant With E-mail Ending With:</label>
+        <input type="text" id="email-ending-input" name="email-ending">
+        <input type="submit" value="DELETE">
+    </form>
     {% include 'footer.html' %}
-    <script>
-        function confirmDeletion() {
-            if (confirm("Are you sure?") === true){
-                document.getElementById("delete-applicant").submit();
-            }
-        }
-    </script>
 {% endblock %}

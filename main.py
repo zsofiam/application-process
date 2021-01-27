@@ -44,9 +44,17 @@ def applicant_details(code):
 
 @app.route('/applicants/<code>/delete', methods=['POST'])
 def delete_applicant(code):
-    data_manager.delete_applicant_by_code(code)
-    applicants_list = data_manager.get_applicants()
-    return render_template('applicants.html', applicants=applicants_list)
+    if request.method == 'POST':
+        data_manager.delete_applicant_by_code(code)
+    return redirect('/applicants')
+
+
+@app.route('/delete-applicant', methods=["POST"])
+def delete_applicant_by_email_ending():
+    if "email-ending" in request.form.keys() and request.form["email-ending"]:
+        applicant_email_ending = request.form["email-ending"]
+        data_manager.delete_applicant_by_email_ending(applicant_email_ending)
+    return redirect('/applicants')
 
 
 @app.route("/applicants-phone")
