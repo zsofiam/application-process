@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+    Applicant Details
+{% endblock %}
+
+{% block content %}
+    <div>
+            <ul>
+                <li>
+                    <p>First Name: {{ applicant["first_name"] }}</p>
+                </li>
+                <li>
+                    <p>Last Name: {{ applicant["last_name"] }}</p>
+                </li>
+                <li>
+                    <p>Phone Number: {{ applicant["phone_number"] }}</p>
+                </li>
+                <li>
+                    <p>E-mail: {{ applicant["phone_number"] }}</p>
+                </li>
+                <li>
+                    <p>Application Code: {{ applicant["application_code"] }}</p>
+                </li>
+            </ul>
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

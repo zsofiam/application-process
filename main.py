@@ -70,5 +70,24 @@ def get_applicant_data_by_name():
     return redirect("/")
 
 
+@app.route('/add-applicant', methods=["GET", "POST"])
+def add_applicant():
+    if request.method == "POST":
+        new_applicant = {}
+        for key in request.form.keys():
+            new_applicant[key] = request.form[key]
+        print(new_applicant)
+        data_manager.add_applicant(new_applicant)
+        url = 'applicants/' + new_applicant["application-code"]
+        return redirect(url)
+    return render_template('add-applicant.html')
+
+
+@app.route('/applicants/<code>')
+def display_applicant(code):
+    applicant_details = data_manager.get_applicant_by_code(code)
+    return render_template('applicants-details.html', applicant = applicant_details)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
