@@ -5,8 +5,12 @@
     <title>{% block page_title %}Main page{% endblock %} - Application process</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <style>
-        input{
+        input, button{
+            display: block;
             margin-bottom: 10px;
+        }
+        input[type="tel"]{
+            margin-bottom: 0px;
         }
         td, th{
             padding: 10px 20px;

@@ -76,3 +76,29 @@ def get_applicant_data_by_email_ending(cursor: RealDictCursor, applicant_email_e
         FROM applicant WHERE email like '%{0!s}'""".format(applicant_email_ending)
     cursor.execute(query)
     return cursor.fetchall()
+
+
+@database_common.connection_handler
+def get_applicant_by_code(cursor: RealDictCursor, code:int) -> list:
+    query = """
+        SELECT first_name, last_name, phone_number, email, application_code 
+        FROM applicant WHERE application_code = '{0!s}'""".format(code)
+    cursor.execute(query)
+    return cursor.fetchone()
+
+
+@database_common.connection_handler
+def update_applicant_phone(cursor: RealDictCursor, new_phone, code) -> list:
+    query = """
+        UPDATE Applicant
+        SET phone_number = '{0!s}'
+        WHERE application_code = '{1!s}';""".format(new_phone, code)
+    cursor.execute(query)
+
+
+@database_common.connection_handler
+def delete_applicant_by_code(cursor: RealDictCursor, code) -> list:
+    query = """
+        DELETE FROM Applicant *
+        WHERE application_code = '{0!s}';""".format(code)
+    cursor.execute(query)

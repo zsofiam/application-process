@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block page_title %}
+    Applicant Details
+{% endblock %}
+
+{% block content %}
+    <div>
+{#    {% for app in applicant %}#}
+        <form action="/applicant/{{ applicant["application_code"] }}" method = "POST">
+            <label for="first-name-input">First Name:</label>
+            <input id="first-name-input" name="first-name" type="text" value="{{ applicant["first_name"] }}" disabled>
+            <label for="last-name-input">Last Name:</label>
+            <input id="last-name-input" name="last-name" type="text" value="{{ applicant["last_name"] }}" disabled>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="new-phone" value="{{ applicant["phone_number"] }}" pattern="00[0-9]{4}/[0-9]{3}-[0-9]{4}">
+            <small>Format: 003630/123-4567</small><br><br>
+            <label for="email-input">E-mail:</label>
+            <input type="email" id="email-input" name="email" value="{{ applicant["email"] }}" disabled>
+            <label for="code-input">Application Code:</label>
+            <input type="number" pattern="[0-9]{5}" id="code-input" name="application-code" value="{{ applicant["application_code"] }}" disabled>
+            <button type="submit">Modify</button>
+        </form>
+{#    {% endfor %}#}
+
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}

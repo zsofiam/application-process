@@ -33,6 +33,22 @@ def applicants_list():
     return render_template('applicants.html', applicants=applicants_list)
 
 
+@app.route('/applicant/<code>', methods=['GET', 'POST'])
+def applicant_details(code):
+    if request.method == 'POST':
+        new_phone = request.form["new-phone"]
+        data_manager.update_applicant_phone(new_phone, code)
+    applicant_details = data_manager.get_applicant_by_code(code)
+    return render_template('applicant.html', applicant = applicant_details)
+
+
+@app.route('/applicants/<code>/delete', methods=['POST'])
+def delete_applicant(code):
+    data_manager.delete_applicant_by_code(code)
+    applicants_list = data_manager.get_applicants()
+    return render_template('applicants.html', applicants=applicants_list)
+
+
 @app.route("/applicants-phone")
 def get_applicant_data_by_name():
     if "email-ending" in request.args.keys() and request.args["email-ending"]:
